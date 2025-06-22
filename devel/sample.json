@@ -1,0 +1,42 @@
+{
+  "receiver": "sms",
+  "status": "firing",
+  "alerts": [
+    {
+      "status": "firing",
+      "labels": {
+        "alertname": "ProbeFailure",
+        "instance": "https://server.example.org",
+        "job": "http_checks",
+        "monitor": "master",
+        "severity": "critical"
+      },
+      "annotations": {
+        "description": "Instance https://server.example.org has been down for over 5m. Job: http_checks",
+        "summary": "BlackBox Probe Failure: https://server.example.org"
+      },
+      "startsAt": "2023-02-06T13:08:45.828Z",
+      "endsAt": "0001-01-01T00:00:00Z",
+      "generatorURL": "http://prometheus.example.org:9090/graph?g0.expr=probe_success+%3D%3D+0\\u0026g0.tab=1",
+      "fingerprint": "1a30ba71cca2921f"
+    }
+  ],
+  "groupLabels": {
+    "alertname": "ProbeFailure"
+  },
+  "commonLabels": {
+    "alertname": "ProbeFailure",
+    "instance": "https://server.example.org",
+    "job": "http_checks",
+    "monitor": "master",
+    "severity": "critical"
+  },
+  "commonAnnotations": {
+    "description": "Instance https://server.example.org has been down for over 5m. Job: http_checks",
+    "summary": "BlackBox Probe Failure: https://server.example.org"
+  },
+  "externalURL": "http://prometheus.example.org:9093",
+  "version": "4",
+  "groupKey": "{}/{severity=\"critical\"}:{alertname=\"ProbeFailure\"}",
+  "truncatedAlerts": 0
+}
