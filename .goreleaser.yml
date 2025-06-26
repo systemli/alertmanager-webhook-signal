@@ -1,0 +1,32 @@
+version: 2
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goarch:
+      - amd64
+      - arm
+      - arm64
+    goos:
+      - linux
+      - darwin
+    goarm:
+      - "6"
+      - "7"
+    ldflags:
+      - -s -w
+dockers:
+  - goos: linux
+    goarch: amd64
+    dockerfile: Dockerfile.release
+    image_templates:
+      - "systemli/alertmanager-webhook-signal:{{ .Tag }}"
+      - "systemli/alertmanager-webhook-signal:{{ .Major }}"
+      - "systemli/alertmanager-webhook-signal:{{ .Major }}.{{ .Minor }}"
+      - "systemli/alertmanager-webhook-signal:latest"
+checksum:
+  name_template: "checksums.txt"
+snapshot:
+  version_template: "{{ .Tag }}-next"
+changelog:
+  disable: true
