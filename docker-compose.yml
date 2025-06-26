@@ -1,0 +1,9 @@
+---
+services:
+  alertmanager-webhook-signal:
+    image: systemli/alertmanager-webhook-signal
+    build: .
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env

@@ -1,0 +1,25 @@
+FROM alpine:3.22 AS build
+
+ENV USER=appuser
+ENV UID=10001
+
+RUN adduser \
+    --disabled-password \
+    --gecos "" \
+    --home "/nonexistent" \
+    --shell "/sbin/nologin" \
+    --no-create-home \
+    --uid "${UID}" \
+    "${USER}"
+
+FROM scratch AS runtime
+
+COPY alertmanager-webhook-signal /alertmanager-webhook-signal
+
+COPY --from=build /etc/passwd /etc/passwd
+COPY --from=build /etc/group /etc/group
+COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
+
+USER appuser:appuser
+
+ENTRYPOINT ["/alertmanager-webhook-signal"]
