@@ -5,3 +5,31 @@
 This service listens for [webhook requests by Alertmanager](https://prometheus.io/docs/alerting/latest/configuration/#webhook_config) and forwards the alerts to a Signal group.
 
 It requires the [JSON-RPC service of AsamK/signal-cli](https://github.com/AsamK/signal-cli/wiki/JSON-RPC-service) to send messages to Signal.
+
+## Configuration
+
+The service expects several environment variables to be set. See `.env.example`.
+
+### Alertmanager configuration
+
+Example configuration to use this service as a [webhook receiver](https://prometheus.io/docs/alerting/latest/configuration/#webhook_config) in Alertmanager that receives alerts with severity `critical` (default receiver `admins` receives all alerts):
+
+```yaml
+receivers:
+- name: admins
+  [...]
+- name: signal
+  webhook_configs:
+  - url: http://container:8080/alertmanager
+    send_resolved: true
+
+route:
+  group_wait: 1m
+  group_interval: 5m
+  repeat_interval: 4h
+  receiver: admins
+  routes:
+  - match:
+      severity: critical
+    receiver: signal
+```
