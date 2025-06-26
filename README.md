@@ -16,9 +16,9 @@ Example configuration to use this service as a [webhook receiver](https://promet
 
 ```yaml
 receivers:
-- name: admins
+- name: admins_mail
   [...]
-- name: signal
+- name: admins_signal
   webhook_configs:
   - url: http://container:8080/alertmanager
     send_resolved: true
@@ -27,9 +27,14 @@ route:
   group_wait: 1m
   group_interval: 5m
   repeat_interval: 4h
-  receiver: admins
+  receiver: admins_mail
   routes:
   - match:
       severity: critical
-    receiver: signal
+    receiver: admins_signal
+    continue: true
+  - match:
+      severity: critical
+    receiver: admins_mail
+    continue: true
 ```
