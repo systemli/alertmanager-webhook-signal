@@ -3,9 +3,9 @@ module github.com/systemli/alertmanager-webhook-signal
 go 1.24
 
 require (
-	github.com/go-chi/chi/v5 v5.2.2
+	github.com/go-chi/chi/v5 v5.2.3
 	github.com/h2non/gock v1.2.0
-	github.com/stretchr/testify v1.10.0
+	github.com/stretchr/testify v1.11.1
 	github.com/ybbus/jsonrpc/v3 v3.1.6
 	go.uber.org/zap v1.27.0
 )
